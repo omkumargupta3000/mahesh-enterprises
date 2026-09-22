@@ -1,10 +1,11 @@
 import ProductCard from "../components/ProductCard.jsx";
 import CategoryCard from "../components/CategoryCard.jsx";
 import products from "../data/products.js";
+import { Link } from "react-router-dom";
 
 const categories = ["Cosmetics", "Toys", "Stationery", "Decoration", "Seasonal"];
 
-function Home({ setCurrentPage }) {
+function Home() {
   const featuredProducts = products.slice(0, 3);
 
   return (
@@ -12,9 +13,9 @@ function Home({ setCurrentPage }) {
       <section className="hero">
         <h1>MAHESH ENTERPRISES</h1>
         <p>Your trusted wholesale partner for cosmetics, toys, stationery and more.</p>
-        <button className="cta-button" onClick={() => setCurrentPage("products")}>
-          View Products
-        </button>
+        <Link className="cta-button" to="/products">
+            View Products
+         </Link>
       </section>
 
       <section className="about-preview">
