@@ -1,7 +1,15 @@
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard.jsx";
-import products from "../data/products.js";
 
 function Products() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5001/api/products")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+
   return (
     <div className="products-page">
       <h1>Our Products</h1>
