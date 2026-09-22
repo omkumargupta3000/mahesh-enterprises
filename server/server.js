@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
-// import connectDB from "./config/db.js";
+import connectDB from "./config/db.js";
 
 dotenv.config();
 
 // When we are ready to use MongoDB, uncomment the line below.
-// connectDB();
+ connectDB();
 
 const app = express();
 

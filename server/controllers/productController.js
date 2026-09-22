@@ -1,38 +1,22 @@
-// For now we are using sample/temporary data instead of MongoDB.
-// Later, this will be replaced with real database queries using the Product model.
+import Product from "../models/Product.js";
 
-const sampleProducts = [
-  {
-    id: 1,
-    name: "Face Cream",
-    category: "Cosmetics",
-    price: 120,
-    image: "/images/face-cream.jpg",
-  },
-  {
-    id: 2,
-    name: "Toy Car",
-    category: "Toys",
-    price: 250,
-    image: "/images/toy-car.jpg",
-  },
-  {
-    id: 3,
-    name: "Notebook Set",
-    category: "Stationery",
-    price: 90,
-    image: "/images/notebook-set.jpg",
-  },
-  {
-    id: 4,
-    name: "Diwali Diya Set",
-    category: "Seasonal",
-    price: 180,
-    image: "/images/diya-set.jpg",
-  },
-];
+export const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch products" });
+  }
+};
 
-// GET /api/products
-export const getProducts = (req, res) => {
-  res.json(sampleProducts);
+export const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch product" });
+  }
 };

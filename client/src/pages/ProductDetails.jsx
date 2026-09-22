@@ -1,17 +1,32 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import products from "../data/products.js";
 
 function ProductDetails() {
   const { id } = useParams();
-  const product = products.find((p) => p.id === Number(id));
+  const [product, setProduct] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!product) {
+  useEffect(() => {
+    fetch(`http://localhost:5001/api/products/${id}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Not found");
+        return res.json();
+      })
+      .then((data) => setProduct(data))
+      .catch(() => setNotFound(true));
+  }, [id]);
+
+  if (notFound) {
     return (
       <div className="product-details-page">
         <h1>Product not found</h1>
         <Link to="/products">Back to Products</Link>
       </div>
     );
+  }
+
+  if (!product) {
+    return <div className="product-details-page"><p>Loading...</p></div>;
   }
 
   return (
