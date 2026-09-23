@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "",
+    price: "",
+    image: "",
+  });
 
   useEffect(() => {
     fetchProducts();
@@ -11,6 +17,22 @@ function AdminProducts() {
     fetch("http://localhost:5001/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:5001/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    }).then(() => {
+      setFormData({ name: "", category: "", price: "", image: "" });
+      fetchProducts();
+    });
   };
 
   const handleDelete = (id) => {
@@ -24,6 +46,42 @@ function AdminProducts() {
   return (
     <div className="admin-page">
       <h1>Admin - Manage Products</h1>
+
+      <form className="admin-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Product name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="category"
+          placeholder="Category"
+          value={formData.category}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="image"
+          placeholder="Image path (e.g. /images/example.jpg)"
+          value={formData.image}
+          onChange={handleChange}
+        />
+        <button type="submit">Add Product</button>
+      </form>
+
       <table className="admin-table">
         <thead>
           <tr>
