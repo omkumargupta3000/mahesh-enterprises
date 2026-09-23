@@ -7,6 +7,8 @@ import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import AdminProducts from "./pages/AdminProducts.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<AdminProducts />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
       <Footer />
     </div>

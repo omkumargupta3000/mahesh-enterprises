@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -8,8 +9,14 @@ function AdminProducts() {
     price: "",
     image: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      navigate("/admin-login");
+      return;
+    }
     fetchProducts();
   }, []);
 
@@ -25,9 +32,14 @@ function AdminProducts() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("adminToken");
+
     fetch("http://localhost:5001/api/products", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(formData),
     }).then(() => {
       setFormData({ name: "", category: "", price: "", image: "" });
@@ -36,16 +48,31 @@ function AdminProducts() {
   };
 
   const handleDelete = (id) => {
+    const token = localStorage.getItem("adminToken");
+
     fetch(`http://localhost:5001/api/products/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }).then(() => {
       fetchProducts();
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    navigate("/admin-login");
+  };
+
   return (
     <div className="admin-page">
-      <h1>Admin - Manage Products</h1>
+      <div className="admin-header">
+        <h1>Admin - Manage Products</h1>
+        <button className="logout-button" onClick={handleLogout}>
+          Log Out
+        </button>
+      </div>
 
       <form className="admin-form" onSubmit={handleSubmit}>
         <input

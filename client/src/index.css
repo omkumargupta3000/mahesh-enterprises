@@ -278,3 +278,32 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
 }
+.admin-login-page {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.admin-login-page .admin-form {
+  flex-direction: column;
+}
+
+.admin-error {
+  color: #d9534f;
+  margin-top: 10px;
+}
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
