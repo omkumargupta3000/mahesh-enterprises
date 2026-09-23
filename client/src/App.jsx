@@ -6,6 +6,7 @@ import Products from "./pages/Products.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
+import AdminProducts from "./pages/AdminProducts.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
          <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<AdminProducts />} />
       </Routes>
       <Footer />
     </div>
