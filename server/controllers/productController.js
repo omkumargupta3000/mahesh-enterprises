@@ -20,3 +20,12 @@ export const getProductById = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch product" });
   }
 };
+export const createProduct = async (req, res) => {
+  try {
+    const newProduct = new Product(req.body);
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    res.status(400).json({ message: "Failed to create product" });
+  }
+};
