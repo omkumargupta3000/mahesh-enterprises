@@ -307,3 +307,40 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
 }
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.category-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.filter-button {
+  background-color: white;
+  border: 1px solid #1f2d3d;
+  color: #1f2d3d;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filter-button.active {
+  background-color: #1f2d3d;
+  color: white;
+}
+
+.no-results {
+  text-align: center;
+  color: #777;
+  margin-top: 30px;
+}
