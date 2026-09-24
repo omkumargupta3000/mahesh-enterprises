@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -18,6 +19,7 @@ function AdminProducts() {
       return;
     }
     fetchProducts();
+    fetchEnquiries();
   }, []);
 
   const fetchProducts = () => {
@@ -26,39 +28,63 @@ function AdminProducts() {
       .then((data) => setProducts(data));
   };
 
+  const fetchEnquiries = () => {
+  const token = localStorage.getItem("adminToken");
+  fetch("http://localhost:5001/api/enquiries", {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then((res) => {
+    if (res.status === 401) {
+      localStorage.removeItem("adminToken");
+      navigate("/admin-login");
+      return;
+    }
+    res.json().then((data) => setEnquiries(data));
+  });
+};
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("adminToken");
+  e.preventDefault();
+  const token = localStorage.getItem("adminToken");
 
-    fetch("http://localhost:5001/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(formData),
-    }).then(() => {
-      setFormData({ name: "", category: "", price: "", image: "" });
-      fetchProducts();
-    });
-  };
+  fetch("http://localhost:5001/api/products", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(formData),
+  }).then((res) => {
+    if (res.status === 401) {
+      localStorage.removeItem("adminToken");
+      navigate("/admin-login");
+      return;
+    }
+    setFormData({ name: "", category: "", price: "", image: "" });
+    fetchProducts();
+  });
+};
 
   const handleDelete = (id) => {
-    const token = localStorage.getItem("adminToken");
+  const token = localStorage.getItem("adminToken");
 
-    fetch(`http://localhost:5001/api/products/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(() => {
-      fetchProducts();
-    });
-  };
+  fetch(`http://localhost:5001/api/products/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    if (res.status === 401) {
+      localStorage.removeItem("adminToken");
+      navigate("/admin-login");
+      return;
+    }
+    fetchProducts();
+  });
+};
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
@@ -133,6 +159,32 @@ function AdminProducts() {
           ))}
         </tbody>
       </table>
+
+      <div className="admin-enquiries">
+        <h2>Customer Enquiries</h2>
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Product</th>
+              <th>Message</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {enquiries.map((enquiry) => (
+              <tr key={enquiry._id}>
+                <td>{enquiry.name}</td>
+                <td>{enquiry.phone}</td>
+                <td>{enquiry.productName}</td>
+                <td>{enquiry.message}</td>
+                <td>{enquiry.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
