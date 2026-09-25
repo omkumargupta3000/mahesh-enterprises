@@ -55,6 +55,10 @@ function ProductDetails() {
       <p className="product-price">₹{product.price}</p>
       <Link to="/products">Back to Products</Link>
 
+      <a href={`https://wa.me/917002120568?text=${encodeURIComponent(`Hi, I'm interested in ${product.name} (${product.category}, ₹${product.price}). Is it available?`)}`} target="_blank" rel="noreferrer" className="whatsapp-button">
+        Enquire on WhatsApp
+      </a>
+
       <div className="enquiry-box">
         <h2>Enquire About This Product</h2>
         {submitted ? (
