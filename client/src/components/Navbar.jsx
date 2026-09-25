@@ -1,14 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
+import { useCart } from "../context/CartContext.jsx";
 
 function Navbar() {
   const location = useLocation();
+  const { cartItems } = useCart();
+const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  const navItems = [
-    { path: "/", label: "Home" },
-    { path: "/products", label: "Products" },
-    { path: "/about", label: "About" },
-    { path: "/contact", label: "Contact" },
-  ];
+const navItems = [
+  { path: "/", label: "Home" },
+  { path: "/products", label: "Products" },
+  { path: "/about", label: "About" },
+  { path: "/contact", label: "Contact" },
+  { path: "/cart", label: `Cart (${cartCount})` },
+];
 
   return (
     <nav className="navbar">

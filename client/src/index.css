@@ -139,8 +139,25 @@ h2 {
   border-radius: 6px;
   padding: 16px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-link {
   text-decoration: none;
   color: inherit;
+  flex: 1;
+}
+
+.add-to-cart-button {
+  margin-top: 10px;
+  background-color: #f5a623;
+  color: #1f2d3d;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .product-image {
@@ -361,4 +378,9 @@ h2 {
 }
 .admin-enquiries {
   margin-top: 40px;
+}
+.cart-total {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
 }

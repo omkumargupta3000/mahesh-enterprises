@@ -8,6 +8,7 @@ import Contact from "./pages/Contact.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import AdminProducts from "./pages/AdminProducts.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
+import Cart from "./pages/Cart.jsx";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<AdminProducts />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </div>
