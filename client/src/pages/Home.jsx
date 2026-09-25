@@ -49,7 +49,7 @@ function Home() {
         <p>Have a query? Contact us directly on WhatsApp.</p>
         <a
           className="whatsapp-button"
-          href="https://wa.me/910000000000"
+          href="https://wa.me/917002120568"
           target="_blank"
           rel="noreferrer"
         >

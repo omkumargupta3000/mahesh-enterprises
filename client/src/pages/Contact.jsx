@@ -7,7 +7,7 @@ function Contact() {
       <p>Email: [Add your business email here]</p>
       <a
         className="whatsapp-button"
-        href="https://wa.me/910000000000"
+        href="https://wa.me/917002120568"
         target="_blank"
         rel="noreferrer"
       >
